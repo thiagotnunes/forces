@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script type="text/javascript" src="lib/jquery-1.6.1.min.js"></script>
+        <script type="text/javascript" src="lib/underscore.js"></script>
+
+        <script type="text/javascript" src="src/Node.js"></script>
+        <script type="text/javascript" src="src/PositionRandomizer.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                    var randomizer = positionRandomizer(600, 600, 10);
+                    var position = randomizer.nextPosition();
+                    node(position).draw($('#canvas')[0].getContext('2d'));
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id="canvas" width="600" height="600">
+        </canvas>
+    </body>
+</html>
