@@ -31,6 +31,6 @@ describe("Position Randomizer", function() {
         var firstPosition = randomizer.nextPosition();
         var secondPosition = randomizer.nextPosition();
 
-        expect(firstPosition).toNotEqual(secondPosition);
+        expect(firstPosition).not.toBe(secondPosition);
     });
 });                                                                 

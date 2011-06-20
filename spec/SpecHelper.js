@@ -1,9 +1,13 @@
 beforeEach(function() {
   this.addMatchers({
-    toBePlaying: function(expectedSong) {
-      var player = this.actual;
-      return player.currentlyPlayingSong === expectedSong
-          && player.isPlaying;
-    }
+      toHaveAttributesOf: function(other) {
+        for (property in this.actual) {
+            if (!_.isFunction(this.actual[property]) && !_.isEqual(this.actual[property], other[property])) {
+                return false;
+            }
+        }
+
+        return true;
+      }
   })
 });

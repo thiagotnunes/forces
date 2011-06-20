@@ -3,15 +3,6 @@ function positionRandomizer(width, height, radius) {
     var widthUpperBoundary = upperBoundaryFor(width);
     var heightUpperBoundary = upperBoundaryFor(height);
     var positions = [];
-    Array.prototype.contains = function(element) {
-        var i = this.length;
-        while(i--) {
-            if (_.isEqual(this[i], element)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     var self = {
     };
