@@ -16,8 +16,12 @@ function vector(x, y) {
         return vector(x * constant, y * constant);
     };
 
+    self.norm = function() {
+        return Math.sqrt(self.dot(self));
+    };
+
     self.normalize = function() {
-        return self.multiply(1.0 / Math.sqrt(self.dot(self)));
+        return self.multiply(1.0 / self.norm());
     };
 
     return self;
