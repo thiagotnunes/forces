@@ -1,8 +1,8 @@
-function positionRandomizer(width, height, radius) {
+function locationRandomizer(width, height, radius) {
     var lowerBoundary = radius + 1;
     var widthUpperBoundary = upperBoundaryFor(width);
     var heightUpperBoundary = upperBoundaryFor(height);
-    var positions = [];
+    var locations = [];
 
     var self = {
     };
@@ -11,18 +11,15 @@ function positionRandomizer(width, height, radius) {
         return lowerBoundary + baseRandomNumber(upperBoundary);
     };
 
-    self.nextPosition = function() {
+    self.nextLocation = function() {
         do {
             var randomX = self.nextRandomFor(widthUpperBoundary);
             var randomY = self.nextRandomFor(heightUpperBoundary);
-            var position = {
-                x : randomX,
-                y : randomY
-            };
-        } while (positions.contains(position)); 
+            var location = vector(randomX, randomY);
+        } while (locations.contains(location)); 
 
-        positions.push(position);
-        return position;
+        locations.push(location);
+        return location;
     };
 
     function baseRandomNumber(upperBoundary) {

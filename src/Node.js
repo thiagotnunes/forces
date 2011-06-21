@@ -1,4 +1,4 @@
-function node(position) {
+function node(location) {
 
     var radius = 10;
     var startAngle = 0;
@@ -6,11 +6,12 @@ function node(position) {
     var anticlockWise = true;
    
     var self = {
+        location : location
     };
 
     self.draw = function(context) {
         context.beginPath();
-        context.arc(position.x, position.y, radius, startAngle, endAngle, anticlockWise);
+        context.arc(location.x, location.y, radius, startAngle, endAngle, anticlockWise);
         context.closePath();
         context.fill();
     };

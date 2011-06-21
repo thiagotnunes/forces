@@ -1,13 +1,13 @@
-describe("Position Randomizer", function() {
+describe("Location Randomizer", function() {
 
     it("should give a random position within boundaries", function() {
         var width = 600;
         var height = 600;
         var radius = 10; 
 
-        var randomizer = positionRandomizer(width, height, radius);
+        var randomizer = locationRandomizer(width, height, radius);
 
-        var position = randomizer.nextPosition();
+        var position = randomizer.nextLocation();
 
         expect(position.x).toBeGreaterThan(radius);
         expect(position.x).toBeLessThan(width - radius);
@@ -16,7 +16,7 @@ describe("Position Randomizer", function() {
     });
 
     it("should not generate no two same positions", function() {
-        var randomizer = positionRandomizer(600, 600, 10);
+        var randomizer = locationRandomizer(600, 600, 10);
 
         var invocationCounter = 0;
         randomizer.nextRandomFor = function(upperBoundary) {
@@ -28,9 +28,9 @@ describe("Position Randomizer", function() {
             }
         };
 
-        var firstPosition = randomizer.nextPosition();
-        var secondPosition = randomizer.nextPosition();
+        var firstLocation = randomizer.nextLocation();
+        var secondLocation = randomizer.nextLocation();
 
-        expect(firstPosition).not.toBe(secondPosition);
+        expect(firstLocation).not.toBe(secondLocation);
     });
 });                                                                 
