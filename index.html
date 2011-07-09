@@ -7,12 +7,16 @@
         <script type="text/javascript" src="src/Vector.js"></script>
         <script type="text/javascript" src="src/Node.js"></script>
         <script type="text/javascript" src="src/LocationRandomizer.js"></script>
+        <script type="text/javascript" src="src/NodesCreator.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
                     var randomizer = locationRandomizer(600, 600, 10);
-                    var randomLocation = randomizer.nextLocation();
-                    node(randomLocation).draw($('#canvas')[0].getContext('2d'));
+                    var thirtyNodesCreator = nodesCreator(30, randomizer);
+                    var nodes = thirtyNodesCreator.createNodes();
+                    for (var i=0; i<nodes.length; i++) {
+                        nodes[i].draw($('#canvas')[0].getContext('2d'));
+                    }
             });
         </script>
     </head>
