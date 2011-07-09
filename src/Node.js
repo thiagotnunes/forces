@@ -6,7 +6,8 @@ function node(location) {
     var anticlockWise = true;
    
     var self = {
-        location : location
+        location : location,
+        connections : []
     };
 
     self.draw = function(context) {
@@ -14,6 +15,17 @@ function node(location) {
         context.arc(location.x, location.y, radius, startAngle, endAngle, anticlockWise);
         context.closePath();
         context.fill();
+
+        return this;
+    };
+
+    self.connectWith = function(otherNode) {
+        if (!self.connections.contains(otherNode)) {
+            self.connections.push(otherNode);
+            otherNode.connections.push(self);
+        }
+
+        return this;
     };
 
     return self;

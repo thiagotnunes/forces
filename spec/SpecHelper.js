@@ -8,6 +8,14 @@ beforeEach(function() {
         }
 
         return true;
+      },
+
+      toContain : function(element) {
+          return this.actual.contains(element);
+      },
+
+      notToContain : function(element) {
+          return !this.actual.contains(element);
       }
   })
 });

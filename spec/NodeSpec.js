@@ -1,7 +1,7 @@
 describe("Node", function() {
 
     it("should draw itself on canvas", function() {
-        var position = { 
+        var location = { 
             x : 5,
             y : 4
         };
@@ -10,7 +10,7 @@ describe("Node", function() {
         var endAngle = Math.PI * 2;
         var anticlockWise = true;
 
-        var firstNode = node(position);
+        var firstNode = node(location);
         var context = {
             beginPath: {},
             arc: {},
@@ -27,12 +27,35 @@ describe("Node", function() {
         firstNode.draw(context);
 
         expect(context.beginPath).toHaveBeenCalled();
-        expect(context.arc).toHaveBeenCalledWith(position.x, position.y, radius, startAngle, endAngle, anticlockWise);
+        expect(context.arc).toHaveBeenCalledWith(location.x, location.y, radius, startAngle, endAngle, anticlockWise);
         expect(context.closePath).toHaveBeenCalled();
         expect(context.fill).toHaveBeenCalled();
     });
 
     it("should add connection to other nodes", function() {
+        var firstNode = node({ x : 5, y : 4});
+        var secondNode = node({ x : 10, y : 25});
+        var thirdNode = node({ x : 0, y : 5});
 
+        firstNode.connectWith(secondNode).connectWith(thirdNode);
+
+        expect(firstNode.connections).toContain(secondNode);
+        expect(firstNode.connections).toContain(thirdNode);
+        expect(secondNode.connections).toContain(firstNode);
+        expect(secondNode.connections).notToContain(thirdNode);
+        expect(thirdNode.connections).toContain(firstNode);
+        expect(thirdNode.connections).notToContain(secondNode);
+    });
+
+    it("should not duplicate connection with the same node", function() {
+        var firstNode = node({ x : 5, y : 5});
+        var secondNode = node({ x : 5, y : 5});
+
+        firstNode.connectWith(secondNode).connectWith(secondNode);
+
+        expect(firstNode.connections.length).toBe(1);
+        expect(secondNode.connections.length).toBe(1);
+        expect(firstNode.connections).toContain(secondNode);
+        expect(secondNode.connections).toContain(firstNode);
     });
 });
