@@ -31,4 +31,8 @@ describe("Node", function() {
         expect(context.closePath).toHaveBeenCalled();
         expect(context.fill).toHaveBeenCalled();
     });
+
+    it("should add connection to other nodes", function() {
+
+    });
 });
