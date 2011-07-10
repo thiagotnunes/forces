@@ -16,6 +16,13 @@ function node(location) {
         context.closePath();
         context.fill();
 
+        context.beginPath();
+        for(var i=0; i<self.connections.length; i++) {
+            context.lineTo(self.location.x, self.location.y, self.connections[i].location.x, self.connections[i].location.y, 10);
+        }
+        context.closePath();
+        context.fill();
+
         return this;
     };
 
