@@ -16,12 +16,12 @@ function node(location) {
         context.closePath();
         context.fill();
 
-        context.beginPath();
+        context.strokeStyle = '#000';
         for(var i=0; i<self.connections.length; i++) {
-            context.lineTo(self.location.x, self.location.y, self.connections[i].location.x, self.connections[i].location.y, 10);
+            context.moveTo(this.location.x, this.location.y);
+            context.lineTo(this.connections[i].location.x, this.connections[i].location.y);
         }
-        context.closePath();
-        context.fill();
+        context.stroke();
 
         return this;
     };

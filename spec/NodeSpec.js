@@ -16,7 +16,10 @@ describe("Node", function() {
             arc: {},
             closePath: {},
             fill: {},
-            rect : {}
+            moveTo : function() {},
+            lineTo : function() {},
+            strokeStyle: null,
+            stroke : function() {}
         };
 
         spyOn(context, 'beginPath');
@@ -41,24 +44,26 @@ describe("Node", function() {
         var firstNode = node({ x : 5, y : 4 });
         var secondNode = node({ x : 10, y : 15 });
         var context = {
-            beginPath: {},
-            arc: {},
-            closePath: {},
-            fill: {},
-            rect : {}
+            beginPath: function() {},
+            arc: function() {},
+            closePath: function() {},
+            fill: function() {},
+            moveTo : {},
+            lineTo : {},
+            strokeStyle : null,
+            stroke : {}
         };
 
-        spyOn(context, 'beginPath');
-        spyOn(context, 'arc');
-        spyOn(context, 'closePath');
-        spyOn(context, 'fill');
-        spyOn(context, 'rect');
+        spyOn(context, 'moveTo');
+        spyOn(context, 'lineTo');
+        spyOn(context, 'stroke');
 
         firstNode.connectWith(secondNode).draw(context);
 
-        expect(context.beginPath).toHaveBeenCalled();
-        expect(context.rect).toHaveBeenCalledWith(5, 4, 10, 15);
-        expect(context.closePath).toHaveBeenCalled();
+        expect(context.moveTo).toHaveBeenCalledWith(5, 4);
+        expect(context.lineTo).toHaveBeenCalledWith(10, 15);
+        expect(context.strokeStyle).toBe('#000');
+        expect(context.stroke).toHaveBeenCalled();
     });
 
     it("should add connection to other nodes", function() {
