@@ -11,7 +11,7 @@ function coulombRepulsion() {
     };
 
     function forceFor(axis, distance) {
-        return axis / Math.pow(distance.norm() + self.k, 2.0);
+        return axis / Math.pow(distance.norm() + this.k, 2.0);
     }
 
     return self;

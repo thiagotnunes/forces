@@ -5,7 +5,7 @@ function hookeAttraction() {
 
     self.calculate = function(node1, node2) {
         var distance = node1.location.subtract(node2.location);
-        var restingDistance = distance.normalize().multiply(self.minimumLength);
+        var restingDistance = distance.normalize().multiply(this.minimumLength);
 
         return (distance.subtract(restingDistance)).multiply(-1);
     };

@@ -12,9 +12,11 @@
         <script type="text/javascript">
             $(document).ready(function() {
                     var randomizer = locationRandomizer(600, 600, 10);
-                    var indexNodexCreator = nodesCreator(2, randomizer);
+                    var indexNodexCreator = nodesCreator(4, randomizer);
                     var nodes = indexNodexCreator.createNodes();
                     nodes[0].connectWith(nodes[1]);
+                    nodes[0].connectWith(nodes[2]);
+                    nodes[2].connectWith(nodes[3]);
                     for (var i=0; i<nodes.length; i++) {
                         nodes[i].draw($('#canvas')[0].getContext('2d'));
                     }

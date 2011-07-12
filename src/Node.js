@@ -17,7 +17,7 @@ function node(location) {
         context.fill();
 
         context.strokeStyle = '#000';
-        for(var i=0; i<self.connections.length; i++) {
+        for(var i=0; i<this.connections.length; i++) {
             context.moveTo(this.location.x, this.location.y);
             context.lineTo(this.connections[i].location.x, this.connections[i].location.y);
         }
@@ -27,9 +27,9 @@ function node(location) {
     };
 
     self.connectWith = function(otherNode) {
-        if (!self.connections.contains(otherNode)) {
-            self.connections.push(otherNode);
-            otherNode.connections.push(self);
+        if (!this.connections.contains(otherNode)) {
+            this.connections.push(otherNode);
+            otherNode.connections.push(this);
         }
 
         return this;
