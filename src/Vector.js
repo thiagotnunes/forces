@@ -17,11 +17,11 @@ function vector(x, y) {
     };
 
     self.norm = function() {
-        return Math.sqrt(this.dot(self));
+        return Math.sqrt(self.dot(self));
     };
 
     self.normalize = function() {
-        return this.multiply(1.0 / this.norm());
+        return self.multiply(1.0 / self.norm());
     };
 
     return self;

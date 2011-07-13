@@ -13,8 +13,8 @@ function locationRandomizer(width, height, radius) {
 
     self.nextLocation = function() {
         do {
-            var randomX = this.nextRandomFor(widthUpperBoundary);
-            var randomY = this.nextRandomFor(heightUpperBoundary);
+            var randomX = self.nextRandomFor(widthUpperBoundary);
+            var randomY = self.nextRandomFor(heightUpperBoundary);
             var location = vector(randomX, randomY);
         } while (locations.contains(location)); 
 

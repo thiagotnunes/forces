@@ -3,9 +3,27 @@ describe("Coulomb repulsion", function() {
     it("should calculate force between two nodes", function() {
         var repulsion = coulombRepulsion();
 
-        var node1 = node(vector(10, 20));
-        var node2 = node(vector(30,40));
+        var node1 = {
+            location : {
+                subtract : {}
+            }
+        };
+        var node2 = {};
+        var distance = {
+            norm : {},
+            normalize : {}
+        };
+        var normalizedDistance = {
+            x : 100,
+            y : 200
+        };
 
-        expect(repulsion.calculate(node1, node2)).toHaveAttributesOf(vector(-0.0030839742182898417, -0.0030839742182898417));    
+        spyOn(distance, 'norm').andReturn(9);
+        spyOn(distance, 'normalize').andReturn(normalizedDistance);
+        spyOn(node1.location, 'subtract').andReturn(distance);
+
+        expect(repulsion.calculate(node1, node2)).toHaveAttributesOf({ x : 1, y : 2 });   
+        expect(node1.location.subtract).toHaveBeenCalledWith(node2.location);
+        expect(distance.normalize).toHaveBeenCalled();
     });
 });

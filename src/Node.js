@@ -17,22 +17,22 @@ function node(location) {
         context.fill();
 
         context.strokeStyle = '#000';
-        for(var i=0; i<this.connections.length; i++) {
-            context.moveTo(this.location.x, this.location.y);
-            context.lineTo(this.connections[i].location.x, this.connections[i].location.y);
+        for(var i=0; i<self.connections.length; i++) {
+            context.moveTo(self.location.x, self.location.y);
+            context.lineTo(self.connections[i].location.x, self.connections[i].location.y);
         }
         context.stroke();
 
-        return this;
+        return self;
     };
 
     self.connectWith = function(otherNode) {
-        if (!this.connections.contains(otherNode)) {
-            this.connections.push(otherNode);
-            otherNode.connections.push(this);
+        if (!self.connections.contains(otherNode)) {
+            self.connections.push(otherNode);
+            otherNode.connections.push(self);
         }
 
-        return this;
+        return self;
     };
 
     return self;

@@ -1,17 +1,21 @@
 describe("Main", function() {
     it("should create nodes and randomize their positions", function() {
         var randomizer = {
-            locationCounter : 0
+            locationCounter : 0,
+            nextLocation : {}
         };
-        randomizer.nextLocation = function() {
-            var nextLocation = { 
-                x : randomizer.locationCounter, 
-                y : randomizer.locationCounter 
-            };
-            randomizer.locationCounter++;
+        spyOn(randomizer, 'nextLocation').andCallFake(
+            function() {
+                var nextLocation = { 
+                    x : randomizer.locationCounter, 
+                    y : randomizer.locationCounter 
+                };
 
-            return nextLocation;
-        };
+                randomizer.locationCounter++;
+
+                return nextLocation;
+            }
+        );
         
         var NUMBER_OF_NODES = 30;
         var testNodesCreator = nodesCreator(NUMBER_OF_NODES, randomizer);

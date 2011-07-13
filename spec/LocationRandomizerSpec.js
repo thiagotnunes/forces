@@ -19,14 +19,11 @@ describe("Location Randomizer", function() {
         var randomizer = locationRandomizer(600, 600, 10);
 
         var invocationCounter = 0;
-        randomizer.nextRandomFor = function(upperBoundary) {
-            invocationCounter += 1;
-            if (invocationCounter <= 4) {
-                return 0;
-            } else {
-                return 1;
+        spyOn(randomizer, 'nextRandomFor').andCallFake(
+            function(upperBoundary) {
+                return this.callCount <= 4 ? 0 : 1;
             }
-        };
+        );
 
         var firstLocation = randomizer.nextLocation();
         var secondLocation = randomizer.nextLocation();
