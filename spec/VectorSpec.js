@@ -1,5 +1,17 @@
 describe("Vector", function() {
 
+    it("should add 2 vectors", function() {
+        var x1 = 10;
+        var y1 = 20;
+        var v1 = vector(x1, y1);
+
+        var x2 = 15;
+        var y2 = 5;
+        var v2 = vector(x2, y2);
+
+        expect(v1.add(v2)).toHaveAttributesOf(vector(25, 25));
+    });
+
     it("should subtract 2 vectors", function() {
         var x1 = 10;
         var y1 = 20;

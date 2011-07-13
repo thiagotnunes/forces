@@ -4,6 +4,10 @@ function vector(x, y) {
         y : y
     };
 
+    self.add = function(otherVector) {
+        return vector(x + otherVector.x, y + otherVector.y);
+    };
+
     self.subtract = function(otherVector) {
         return vector(x - y, otherVector.x - otherVector.y);
     };
