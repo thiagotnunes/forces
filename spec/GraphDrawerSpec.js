@@ -25,4 +25,26 @@ describe("Graph drawer", function() {
         expect(resultingVelocity.multiply).toHaveBeenCalledWith(drawer.damping);
         expect(actualVelocity).toBe(expectedVelocity);
     });
+
+    it("should calculate node updated position", function() {
+        var drawer = graphDrawer();
+        var someNode = {
+            location : {
+                add : {}
+            }
+        };
+        var velocity = {
+            multiply : {}
+        };
+        var expectedLocation = {};
+
+        spyOn(velocity, 'multiply').andReturn(velocity);
+        spyOn(someNode.location, 'add').andReturn(expectedLocation);
+
+        var actualLocation = drawer.nextPositionFor(someNode, velocity);
+        
+        expect(velocity.multiply).toHaveBeenCalledWith(drawer.timestep);
+        expect(someNode.location.add).toHaveBeenCalledWith(velocity);
+        expect(actualLocation).toBe(expectedLocation);
+    });
 });

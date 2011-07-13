@@ -10,5 +10,10 @@ function graphDrawer() {
         return velocity.multiply(self.damping);
     };
 
+    self.nextPositionFor = function(node, velocity) {
+        var updatedVelocity = velocity.multiply(self.timestep);
+        return node.location.add(updatedVelocity);
+    };
+
     return self;
 }
