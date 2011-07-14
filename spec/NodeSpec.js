@@ -92,4 +92,10 @@ describe("Node", function() {
         expect(firstNode.connections).toContain(secondNode);
         expect(secondNode.connections).toContain(firstNode);
     });
+
+    it("should have initial velocity set to 0,0", function() {
+        var someNode = node({ x : 5, y : 5 });
+
+        expect(someNode.velocity).toHaveAttributesOf({ x : 0, y : 0 });
+    });
 });

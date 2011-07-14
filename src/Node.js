@@ -7,7 +7,8 @@ function node(location) {
    
     var self = {
         location : location,
-        connections : []
+        connections : [],
+        velocity : vector(0, 0)
     };
 
     self.draw = function(context) {
