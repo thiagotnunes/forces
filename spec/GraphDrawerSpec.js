@@ -47,4 +47,41 @@ describe("Graph drawer", function() {
         expect(someNode.location.add).toHaveBeenCalledWith(velocity);
         expect(actualLocation).toBe(expectedLocation);
     });
+
+    it("should calculate net force", function() {
+       var node2 = {};
+       var node3 = {};
+       var node1 = {
+           connections : [node2, node3]
+       };
+
+       var repulsion = {
+           calculate : {}
+       };
+       var resultingRepulsion = {};
+       
+       var attraction = {
+           calculate : {}
+       };
+       var resultingAttraction = {};
+       var netForce = {
+           add : {}
+       };
+
+       spyOn(repulsion, 'calculate').andReturn(resultingRepulsion);
+       spyOn(attraction, 'calculate').andReturn(resultingAttraction);
+       spyOn(netForce, 'add').andReturn(netForce);
+
+       var drawer = graphDrawer(null, repulsion, attraction);
+
+       var actualNetForce = drawer.calculateNetForceFor(node1, netForce);
+
+       expect(actualNetForce).toBe(netForce);
+       expect(repulsion.calculate).toHaveBeenCalledWith(node1, node2);
+       expect(repulsion.calculate).toHaveBeenCalledWith(node1, node3);
+       expect(attraction.calculate).toHaveBeenCalledWith(node1, node2);
+       expect(attraction.calculate).toHaveBeenCalledWith(node1, node3);
+       expect(netForce.add).toHaveBeenCalledWith(resultingRepulsion);
+       expect(netForce.add).toHaveBeenCalledWith(resultingAttraction);
+    });
 });
