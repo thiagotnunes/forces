@@ -1,4 +1,4 @@
-function graphDrawer(nodes, repulsion, attraction) {
+function forces(repulsion, attraction) {
     var self = {
         timestep : 1,
         damping : 0.5

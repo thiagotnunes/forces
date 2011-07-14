@@ -1,6 +1,6 @@
-describe("Graph drawer", function() {
+describe("Graph forcesCalculator", function() {
     it("should calculate node velocity", function() {
-        var drawer = graphDrawer();
+        var forcesCalculator = forces();
         var netForce = {
             multiply : {}
         };
@@ -18,16 +18,16 @@ describe("Graph drawer", function() {
         spyOn(resultingVelocity, 'multiply').andReturn(expectedVelocity);
         spyOn(someNode.velocity, 'dot').andReturn(resultingVelocity);
 
-        var actualVelocity = drawer.velocityFor(someNode, netForce);
+        var actualVelocity = forcesCalculator.velocityFor(someNode, netForce);
 
-        expect(netForce.multiply).toHaveBeenCalledWith(drawer.timestep);
+        expect(netForce.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
         expect(someNode.velocity.dot).toHaveBeenCalledWith(netForce);
-        expect(resultingVelocity.multiply).toHaveBeenCalledWith(drawer.damping);
+        expect(resultingVelocity.multiply).toHaveBeenCalledWith(forcesCalculator.damping);
         expect(actualVelocity).toBe(expectedVelocity);
     });
 
     it("should calculate node updated position", function() {
-        var drawer = graphDrawer();
+        var forcesCalculator = forces();
         var someNode = {
             location : {
                 add : {}
@@ -41,9 +41,9 @@ describe("Graph drawer", function() {
         spyOn(velocity, 'multiply').andReturn(velocity);
         spyOn(someNode.location, 'add').andReturn(expectedLocation);
 
-        var actualLocation = drawer.nextPositionFor(someNode, velocity);
+        var actualLocation = forcesCalculator.nextPositionFor(someNode, velocity);
         
-        expect(velocity.multiply).toHaveBeenCalledWith(drawer.timestep);
+        expect(velocity.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
         expect(someNode.location.add).toHaveBeenCalledWith(velocity);
         expect(actualLocation).toBe(expectedLocation);
     });
@@ -72,9 +72,9 @@ describe("Graph drawer", function() {
        spyOn(attraction, 'calculate').andReturn(resultingAttraction);
        spyOn(netForce, 'add').andReturn(netForce);
 
-       var drawer = graphDrawer(null, repulsion, attraction);
+       var forcesCalculator = forces(repulsion, attraction);
 
-       var actualNetForce = drawer.calculateNetForceFor(node1, netForce);
+       var actualNetForce = forcesCalculator.calculateNetForceFor(node1, netForce);
 
        expect(actualNetForce).toBe(netForce);
        expect(repulsion.calculate).toHaveBeenCalledWith(node1, node2);
