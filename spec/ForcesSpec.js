@@ -26,7 +26,7 @@ describe("Graph forcesCalculator", function() {
         expect(actualVelocity).toBe(expectedVelocity);
     });
 
-    it("should calculate node updated position", function() {
+    it("should calculate node updated location", function() {
         var forcesCalculator = forces();
         var someNode = {
             location : {
@@ -41,7 +41,7 @@ describe("Graph forcesCalculator", function() {
         spyOn(velocity, 'multiply').andReturn(velocity);
         spyOn(someNode.location, 'add').andReturn(expectedLocation);
 
-        var actualLocation = forcesCalculator.nextPositionFor(someNode, velocity);
+        var actualLocation = forcesCalculator.nextLocationFor(someNode, velocity);
         
         expect(velocity.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
         expect(someNode.location.add).toHaveBeenCalledWith(velocity);

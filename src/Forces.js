@@ -10,7 +10,7 @@ function forces(repulsion, attraction) {
         return velocity.multiply(self.damping);
     };
 
-    self.nextPositionFor = function(node, velocity) {
+    self.nextLocationFor = function(node, velocity) {
         var updatedVelocity = velocity.multiply(self.timestep);
         return node.location.add(updatedVelocity);
     };

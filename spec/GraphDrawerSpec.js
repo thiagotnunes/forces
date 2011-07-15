@@ -1,14 +1,31 @@
 describe("Graph Drawer", function() {
     it("should draw graph and apply the forces to get the nodes in the right locations", function() {
-        var forces = {};
+        var forces = {
+            calculateNetForceFor : {},
+            velocityFor : {},
+            nextLocationFor : {}
+        };
+        
         var node1 = {};
         var node2 = {};
-        var node3 = {};
-        node1.connections = [node2, node3];
-        node2.connections = [node1];
-        node3.connections = [node1];
+        var nodes = [node1, node2];
 
-        var nodes = [node1, node2, node3];
-        var drawer = graphDrawer(nodes, forces);
+        var netForce = {};
+        var velocity = {};
+        var location = {};
+
+        spyOn(forces, 'calculateNetForceFor').andReturn(netForce);
+        spyOn(forces, 'velocityFor').andReturn(velocity);
+        spyOn(forces, 'nextLocationFor').andReturn(location);
+
+        var drawer = graphDrawer(forces);
+        drawer.draw(nodes);
+
+        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node1);
+        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node2);
+        expect(forces.velocityFor).toHaveBeenCalledWith(node1, netForce);
+        expect(forces.velocityFor).toHaveBeenCalledWith(node2, netForce);
+        expect(forces.nextLocationFor).toHaveBeenCalledWith(node1, velocity);
+        expect(forces.nextLocationFor).toHaveBeenCalledWith(node2, velocity);
     });
 });
