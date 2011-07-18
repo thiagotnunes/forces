@@ -1,4 +1,4 @@
-describe("Graph forcesCalculator", function() {
+describe("Forces", function() {
     it("should calculate node velocity", function() {
         var forcesCalculator = forces();
         var netForce = {

@@ -8,6 +8,10 @@
         <script type="text/javascript" src="src/Node.js"></script>
         <script type="text/javascript" src="src/LocationRandomizer.js"></script>
         <script type="text/javascript" src="src/NodesCreator.js"></script>
+        <script type="text/javascript" src="src/CoulombRepulsion.js"></script>
+        <script type="text/javascript" src="src/HookeAttraction.js"></script>
+        <script type="text/javascript" src="src/Forces.js"></script>
+        <script type="text/javascript" src="src/ForceLocationCalculator.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -17,6 +21,18 @@
                     nodes[0].connectWith(nodes[1]);
                     nodes[0].connectWith(nodes[2]);
                     nodes[2].connectWith(nodes[3]);
+
+                    var repulsion = coulombRepulsion();
+                    var attraction = hookeAttraction();
+                    var nodeForces = forces(repulsion, attraction);
+                    var locationCalculator = forceLocationCalculator(nodeForces);
+
+                    for (var i=0; i<nodes.length; i++) {
+                        nodes[i].draw($('#canvas')[0].getContext('2d'));
+                    }
+
+                    locationCalculator.updateLocationOf(nodes, vector(0, 0));
+
                     for (var i=0; i<nodes.length; i++) {
                         nodes[i].draw($('#canvas')[0].getContext('2d'));
                     }

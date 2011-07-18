@@ -1,9 +1,9 @@
-function graphDrawer(forces) {
+function forceLocationCalculator(forces) {
     var self = {};
 
-    self.draw = function(nodes) {
+    self.updateLocationOf = function(nodes, initialNetForce) {
         for(var i=0; i<nodes.length; i++) {
-            var netForce = forces.calculateNetForceFor(nodes[i]); 
+            var netForce = forces.calculateNetForceFor(nodes[i], initialNetForce);
             var velocity = forces.velocityFor(nodes[i], netForce);
             var location = forces.nextLocationFor(nodes[i], velocity);
 
