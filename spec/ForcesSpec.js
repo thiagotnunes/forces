@@ -6,7 +6,7 @@ describe("Forces", function() {
         };
         var someNode = {
             velocity : {
-                dot : {}
+                add : {}
             }
         };
         var resultingVelocity = {
@@ -16,12 +16,12 @@ describe("Forces", function() {
         
         spyOn(netForce, 'multiply').andReturn(netForce);
         spyOn(resultingVelocity, 'multiply').andReturn(expectedVelocity);
-        spyOn(someNode.velocity, 'dot').andReturn(resultingVelocity);
+        spyOn(someNode.velocity, 'add').andReturn(resultingVelocity);
 
         var actualVelocity = forcesCalculator.velocityFor(someNode, netForce);
 
         expect(netForce.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
-        expect(someNode.velocity.dot).toHaveBeenCalledWith(netForce);
+        expect(someNode.velocity.add).toHaveBeenCalledWith(netForce);
         expect(resultingVelocity.multiply).toHaveBeenCalledWith(forcesCalculator.damping);
         expect(actualVelocity).toBe(expectedVelocity);
     });

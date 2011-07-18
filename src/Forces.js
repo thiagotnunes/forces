@@ -6,7 +6,7 @@ function forces(repulsion, attraction) {
 
     self.velocityFor = function(node, netForce) {
         var updatedNetForce = netForce.multiply(self.timestep);
-        var velocity = node.velocity.dot(updatedNetForce);
+        var velocity = node.velocity.add(updatedNetForce);
         return velocity.multiply(self.damping);
     };
 

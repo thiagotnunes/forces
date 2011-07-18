@@ -12,15 +12,19 @@ function node(location) {
     };
 
     self.draw = function(context) {
+        var x = parseInt(self.location.x);
+        var y = parseInt(self.location.y);
         context.beginPath();
-        context.arc(location.x, location.y, radius, startAngle, endAngle, anticlockWise);
+        context.arc(x, y, radius, startAngle, endAngle, anticlockWise);
         context.closePath();
         context.fill();
 
         context.strokeStyle = '#000';
         for(var i=0; i<self.connections.length; i++) {
-            context.moveTo(self.location.x, self.location.y);
-            context.lineTo(self.connections[i].location.x, self.connections[i].location.y);
+            var otherX = self.connections[i].location.x;
+            var otherY = self.connections[i].location.y;
+            context.moveTo(x, y);
+            context.lineTo(otherX, otherY);
         }
         context.stroke();
 
