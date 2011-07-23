@@ -24,11 +24,15 @@ describe("Location Calculator", function() {
         var locationCalculator = forceLocationCalculator(forces);
         locationCalculator.updateLocationOf(nodes, initialNetForce);
 
-        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node1, initialNetForce);
-        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node2, initialNetForce);
+        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node1, nodes, initialNetForce);
+        expect(forces.calculateNetForceFor).toHaveBeenCalledWith(node2, nodes, initialNetForce);
         expect(forces.velocityFor).toHaveBeenCalledWith(node1, netForce);
         expect(forces.velocityFor).toHaveBeenCalledWith(node2, netForce);
         expect(forces.nextLocationFor).toHaveBeenCalledWith(node1, velocity);
         expect(forces.nextLocationFor).toHaveBeenCalledWith(node2, velocity);
+        expect(node1.velocity).toBe(velocity);
+        expect(node2.velocity).toBe(velocity);
+        expect(node1.location).toBe(location);
+        expect(node2.location).toBe(location);
     });
 });

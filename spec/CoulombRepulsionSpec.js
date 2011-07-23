@@ -10,7 +10,7 @@ describe("Coulomb repulsion", function() {
         };
         var node2 = {};
         var distance = {
-            norm : {},
+            module : {},
             normalize : {}
         };
         var normalizedDistance = {
@@ -18,7 +18,7 @@ describe("Coulomb repulsion", function() {
             y : 200
         };
 
-        spyOn(distance, 'norm').andReturn(9);
+        spyOn(distance, 'module').andReturn(9);
         spyOn(distance, 'normalize').andReturn(normalizedDistance);
         spyOn(node1.location, 'subtract').andReturn(distance);
 

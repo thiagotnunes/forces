@@ -12,10 +12,13 @@ describe("Forces", function() {
         var resultingVelocity = {
             multiply : {}
         };
-        var expectedVelocity = {};
+        var expectedVelocity = {
+            multiply : {}
+        };
         
         spyOn(netForce, 'multiply').andReturn(netForce);
         spyOn(resultingVelocity, 'multiply').andReturn(expectedVelocity);
+        spyOn(expectedVelocity, 'multiply').andReturn(expectedVelocity);
         spyOn(someNode.velocity, 'add').andReturn(resultingVelocity);
 
         var actualVelocity = forcesCalculator.velocityFor(someNode, netForce);
@@ -43,7 +46,6 @@ describe("Forces", function() {
 
         var actualLocation = forcesCalculator.nextLocationFor(someNode, velocity);
         
-        expect(velocity.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
         expect(someNode.location.add).toHaveBeenCalledWith(velocity);
         expect(actualLocation).toBe(expectedLocation);
     });
@@ -74,9 +76,10 @@ describe("Forces", function() {
 
        var forcesCalculator = forces(repulsion, attraction);
 
-       var actualNetForce = forcesCalculator.calculateNetForceFor(node1, netForce);
+       var actualNetForce = forcesCalculator.calculateNetForceFor(node1, [node1, node2, node3], netForce);
 
        expect(actualNetForce).toBe(netForce);
+       expect(repulsion.calculate).not.toHaveBeenCalledWith(node1, node1);
        expect(repulsion.calculate).toHaveBeenCalledWith(node1, node2);
        expect(repulsion.calculate).toHaveBeenCalledWith(node1, node3);
        expect(attraction.calculate).toHaveBeenCalledWith(node1, node2);

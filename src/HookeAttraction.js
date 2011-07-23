@@ -1,6 +1,6 @@
 function hookeAttraction() {
     var self = {
-        minimumLength : 5
+        minimumLength : 0.5
     };
 
     self.calculate = function(node1, node2) {

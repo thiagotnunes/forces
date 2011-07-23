@@ -1,6 +1,6 @@
 function coulombRepulsion() {
     var self = {
-        k : 1.0
+        k : 1
     };
 
     self.calculate = function(node1, node2) {
@@ -11,7 +11,7 @@ function coulombRepulsion() {
     };
 
     function forceFor(axis, distance) {
-        return axis / Math.pow(distance.norm() + self.k, 2.0);
+        return axis / Math.pow(distance.module() + self.k, 2.0);
     }
 
     return self;

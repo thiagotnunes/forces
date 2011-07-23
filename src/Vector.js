@@ -20,12 +20,12 @@ function vector(x, y) {
         return vector(x * constant, y * constant);
     };
 
-    self.norm = function() {
+    self.module = function() {
         return Math.sqrt(self.dot(self));
     };
 
     self.normalize = function() {
-        return self.multiply(1.0 / self.norm());
+        return self.multiply(1.0 / self.module());
     };
 
     return self;
