@@ -10,19 +10,19 @@ describe("Coulomb repulsion", function() {
         };
         var node2 = {};
         var distance = {
-            module : {},
-            normalize : {}
+            normalize : {},
+            dot : {}
         };
         var normalizedDistance = {
-            x : 100,
-            y : 200
+            x : 0.7,
+            y : 0.3
         };
 
-        spyOn(distance, 'module').andReturn(9);
-        spyOn(distance, 'normalize').andReturn(normalizedDistance);
         spyOn(node1.location, 'subtract').andReturn(distance);
+        spyOn(distance, 'dot').andReturn(100);
+        spyOn(distance, 'normalize').andReturn(normalizedDistance);
 
-        expect(repulsion.calculate(node1, node2)).toHaveAttributesOf({ x : 1, y : 2 });   
+        expect(repulsion.calculate(node1, node2)).toHaveAttributesOf({ x : 7, y : 3 });   
         expect(node1.location.subtract).toHaveBeenCalledWith(node2.location);
         expect(distance.normalize).toHaveBeenCalled();
     });

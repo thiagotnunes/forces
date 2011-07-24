@@ -5,19 +5,19 @@ function vector(x, y) {
     };
 
     self.add = function(otherVector) {
-        return vector(x + otherVector.x, y + otherVector.y);
+        return vector(self.x + otherVector.x, self.y + otherVector.y);
     };
 
     self.subtract = function(otherVector) {
-        return vector(x - y, otherVector.x - otherVector.y);
+        return vector(self.x - otherVector.x, self.y - otherVector.y);
     };
 
     self.dot = function(otherVector) {
-        return x * otherVector.x + y * otherVector.y;
+        return self.x * otherVector.x + self.y * otherVector.y;
     };
 
     self.multiply = function(constant) {
-        return vector(x * constant, y * constant);
+        return vector(self.x * constant, self.y * constant);
     };
 
     self.module = function() {

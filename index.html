@@ -14,7 +14,7 @@
         <script type="text/javascript" src="src/ForceLocationCalculator.js"></script>
 
         <script type="text/javascript">
-            var randomizer = locationRandomizer(600, 600, 400);
+            var randomizer = locationRandomizer(600, 600, 410);
             var indexNodexCreator = nodesCreator(8, randomizer);
             var nodes = indexNodexCreator.createNodes();
             nodes[0].connectWith(nodes[1]);
@@ -45,6 +45,10 @@
             function updateLocation(nodes, context) {
                 locationCalculator.updateLocationOf(nodes, vector(0, 0));
                 drawNodes(nodes, context);
+                setTimeout(callback, 100);
+                function callback() {
+                    updateLocation(nodes, context);
+                };
             }
 
             function clearCanvas(canvas, context) {

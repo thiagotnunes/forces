@@ -23,7 +23,7 @@ describe("Vector", function() {
 
         var result = v1.subtract(v2);
 
-        expect(v1.subtract(v2)).toHaveAttributesOf(vector(-10, 10));
+        expect(v1.subtract(v2)).toHaveAttributesOf(vector(-5, 15));
     });
 
     it("should calculate dot product of a vector", function() {
