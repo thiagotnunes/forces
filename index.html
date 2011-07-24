@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="forces.css" />
         <script type="text/javascript" src="lib/jquery-1.6.1.min.js"></script>
         <script type="text/javascript" src="lib/underscore.js"></script>
 
@@ -12,55 +13,25 @@
         <script type="text/javascript" src="src/HookeAttraction.js"></script>
         <script type="text/javascript" src="src/Forces.js"></script>
         <script type="text/javascript" src="src/ForceLocationCalculator.js"></script>
+        <script type="text/javascript" src="src/NodesDrawer.js"></script>
+        <script type="text/javascript" src="src/Main.js"></script>
+        <script type="text/javascript" src="src/FanNodeCreator.js"></script>
 
         <script type="text/javascript">
-            var randomizer = locationRandomizer(600, 600, 410);
-            var indexNodexCreator = nodesCreator(8, randomizer);
-            var nodes = indexNodexCreator.createNodes();
-            nodes[0].connectWith(nodes[1]);
-            nodes[0].connectWith(nodes[2]);
-            nodes[0].connectWith(nodes[3]);
-            nodes[0].connectWith(nodes[4]);
-            nodes[0].connectWith(nodes[5]);
-            nodes[0].connectWith(nodes[6]);
-            nodes[0].connectWith(nodes[7]);
-
-            var repulsion = coulombRepulsion();
-            var attraction = hookeAttraction();
-            var nodeForces = forces(repulsion, attraction);
-            var locationCalculator = forceLocationCalculator(nodeForces);
+            var program = null;
             $(document).ready(function() {
-                    var canvas = $('#canvas')[0];
-                    var context = canvas.getContext('2d');
-                    drawNodes(nodes, context);
+                program = main($('#canvas')[0]);
+                program.initialize();
             });
 
-            function drawNodes(nodes, context) {
-                clearCanvas(canvas, context);
-                for (var i=0; i<nodes.length; i++) {
-                    nodes[i].draw(context);
-                }
-            }
-
-            function updateLocation(nodes, context) {
-                locationCalculator.updateLocationOf(nodes, vector(0, 0));
-                drawNodes(nodes, context);
-                setTimeout(callback, 100);
-                function callback() {
-                    updateLocation(nodes, context);
-                };
-            }
-
-            function clearCanvas(canvas, context) {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                var width = canvas.width;
-                canvas.width = 1;
-                canvas.width = width;
-            }
         </script>
     </head>
     <body>
-        <canvas id="canvas" width="600" height="600"></canvas>
-        <input type="submit" onclick="javascript:updateLocation(nodes, $('#canvas')[0].getContext('2d')); return false;" value="Iterate" />
+        <div id="canvasContainer">
+            <canvas id="canvas" width="800px" height="600px"></canvas>
+        </div>
+        <div id="commandContainer">
+            <input type="submit" id="start" onclick="javascript : program.organize(); return false;" value="Start" />
+        </div>
     </body>
 </html>

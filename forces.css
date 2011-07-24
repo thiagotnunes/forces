@@ -1,0 +1,36 @@
+#canvasContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 600px;
+}
+#canvas {
+    border: 1px solid #CCC; 
+}
+#commandContainer {
+    margin: 10px auto;
+    width: 10%;
+}
+#start {
+    /* Disables default styling */
+    border: none;
+    background: #00B6FF;
+    color: #fff;
+
+    /* You need to set font, font size and cursor for buttons */
+    font-size: 15px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    cursor: pointer;
+
+    padding: 8px 13px;
+    font-weight: bold;
+
+    border-radius: 5px;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+    box-shadow:
+    0 0 0 1px #0086ba inset, /* Outer bevel */
+    0 0 0 2px #6cdcea inset, /* Inner bevel */
+    0 30px 20px -18px rgba(255,255,255,0.65) inset, /* Inner gradient */
+    1px 1px 3px rgba(0,0,0,0.2) /* Drop shadow */
+    ;
+}
