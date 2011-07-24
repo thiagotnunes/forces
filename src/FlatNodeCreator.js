@@ -1,4 +1,4 @@
-function fanNodeCreator(nodesCreator) {
+function flatNodeCreator(nodesCreator) {
     self = {
         nodesCreator : nodesCreator
     };

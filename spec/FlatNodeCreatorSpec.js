@@ -1,4 +1,4 @@
-describe("Fan Node Creator", function() {
+describe("Flat Node Creator", function() {
     it("should creator a fan like graph", function() {
         var creator = {
             createNodes : {}
@@ -23,9 +23,9 @@ describe("Fan Node Creator", function() {
         spyOn(node3, 'connectWith');
         spyOn(node4, 'connectWith');
 
-        var fanCreator = fanNodeCreator(creator);
+        var flatCreator = flatNodeCreator(creator);
 
-        var responseNodes = fanCreator.nodes();
+        var responseNodes = flatCreator.nodes();
 
         expect(nodes.contains(node1)).toBe(true);
         expect(nodes.contains(node2)).toBe(true);

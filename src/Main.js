@@ -4,8 +4,8 @@ function main(canvas) {
     };
 
     self.initialize = function() {
-        var randomizer = locationRandomizer(800, 600, 200);
-        var creator = fanNodeCreator(nodesCreator(8, randomizer));
+        var randomizer = locationRandomizer(self.canvas.width, self.canvas.height, 200);
+        var creator = flatNodeCreator(nodesCreator(8, randomizer));
         var repulsion = coulombRepulsion();
         var attraction = hookeAttraction();
         var nodeForces = forces(repulsion, attraction);    

@@ -1,6 +1,6 @@
 function forces(repulsion, attraction) {
     var self = {
-        timestep : 1,
+        timestep : 0.7,
         damping : 0.5
     };
 
