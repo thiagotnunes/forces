@@ -5,7 +5,7 @@ function main(canvas) {
 
     self.initialize = function() {
         var randomizer = locationRandomizer(self.canvas.width, self.canvas.height, 200);
-        var creator = flatNodeCreator(nodesCreator(8, randomizer));
+        var creator = binaryNodeCreator(nodesCreator(12, randomizer));
         var repulsion = coulombRepulsion();
         var attraction = hookeAttraction();
         var nodeForces = forces(repulsion, attraction);    
