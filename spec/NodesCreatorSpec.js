@@ -1,31 +1,32 @@
-describe("Main", function() {
-    it("should create nodes and randomize their positions", function() {
-        var randomizer = {
-            locationCounter : 0,
-            nextLocation : {}
+describe("Nodes Creator", function() {
+  it("should create nodes and randomize their positions", function() {
+    var positionCounter = 0;
+    var randomizer = {
+      nextLocation: {}
+    };
+
+    spyOn(randomizer, 'nextLocation').andCallFake(
+      function() {
+        var nextLocation = { 
+          x: positionCounter, 
+          y: positionCounter 
         };
-        spyOn(randomizer, 'nextLocation').andCallFake(
-            function() {
-                var nextLocation = { 
-                    x : randomizer.locationCounter, 
-                    y : randomizer.locationCounter 
-                };
 
-                randomizer.locationCounter++;
+        positionCounter++;
 
-                return nextLocation;
-            }
-        );
-        
-        var NUMBER_OF_NODES = 30;
-        var testNodesCreator = nodesCreator(NUMBER_OF_NODES, randomizer);
+        return nextLocation;
+      }
+      );
 
-        var nodes = testNodesCreator.createNodes();
+    var NUMBER_OF_NODES = 30;
+    var testNodesCreator = nodesCreator(NUMBER_OF_NODES, randomizer);
 
-        expect(nodes.length).toBe(NUMBER_OF_NODES);
-        for (var i=0; i<nodes.length; i++) {
-            expect(nodes[i].location.x).toBe(i);
-            expect(nodes[i].location.y).toBe(i);
-        }
+    var nodes = testNodesCreator.createNodes();
+
+    expect(nodes.length).toBe(NUMBER_OF_NODES);
+    _.each(nodes, function(element, i) {
+      expect(element.position.x).toBe(i);
+      expect(element.position.y).toBe(i);
     });
+  });
 });

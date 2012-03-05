@@ -1,16 +1,17 @@
 function forceLocationCalculator(forces) {
-    var self = {};
 
-    self.updateLocationOf = function(nodes, initialNetForce) {
-        for(var i=0; i<nodes.length; i++) {
-            var netForce = forces.calculateNetForceFor(nodes[i], nodes, initialNetForce);
-            var velocity = forces.velocityFor(nodes[i], netForce);
-            var location = forces.nextLocationFor(nodes[i], velocity);
+  var updateLocationOf = function(nodes, initialNetForce) {
+    _.each(nodes, function(element) {
+      var netForce = forces.calculateNetForceFor(element, nodes, initialNetForce);
+      var velocity = forces.velocityFor(element, netForce);
+      var position = forces.nextLocationFor(element, velocity);
 
-            nodes[i].velocity = velocity;
-            nodes[i].location = location; 
-        }
-    };
+      element.velocity = velocity;
+      element.position = position; 
+    });
+  };
 
-    return self;
+  return {
+    updateLocationOf: updateLocationOf
+  };
 }

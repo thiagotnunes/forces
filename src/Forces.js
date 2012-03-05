@@ -1,31 +1,34 @@
 function forces(repulsion, attraction) {
-    var self = {
-        timestep : 0.7,
-        damping : 0.5
-    };
+  var timestep = 0.7;
+  var damping = 0.5;
 
-    self.velocityFor = function(node, netForce) {
-        var updatedNetForce = netForce.multiply(self.timestep);
-        var velocity = node.velocity.add(updatedNetForce);
-        return velocity.multiply(self.damping).multiply(self.timestep);
-    };
+  var velocityFor = function(node, netForce) {
+    var updatedNetForce = netForce.multiply(timestep);
+    var velocity = node.velocity.add(updatedNetForce);
+    return velocity.multiply(damping).multiply(timestep);
+  };
 
-    self.nextLocationFor = function(node, velocity) {
-        return node.location.add(velocity);
-    };
+  var nextLocationFor = function(node, velocity) {
+    return node.position.add(velocity);
+  };
 
-    self.calculateNetForceFor = function(node, nodes, initialForce) {
-        var netForce = initialForce;
-        for (var i=0; i<nodes.length; i++) {
-            if (nodes[i] != node)
-                netForce = netForce.add(repulsion.calculate(node, nodes[i]));
-        }
-        for (var i=0; i<node.connections.length; i++) {
-            netForce = netForce.add(attraction.calculate(node, node.connections[i]));
-        }
+  var calculateNetForceFor = function(node, nodes, initialForce) {
+    var netForce = initialForce;
+    _.each(nodes, function(element) {
+      if (element != node) {
+        netForce = netForce.add(repulsion.calculate(node, element));
+      }
+    });
+    _.each(node.connections, function(element) {
+      netForce = netForce.add(attraction.calculate(node, element));
+    });
 
-        return netForce;
-    };
+    return netForce;
+  };
 
-    return self;
+  return {
+    velocityFor: velocityFor,
+    nextLocationFor: nextLocationFor,
+    calculateNetForceFor: calculateNetForceFor
+  };
 }

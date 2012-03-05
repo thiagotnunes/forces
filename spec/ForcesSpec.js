@@ -1,90 +1,75 @@
 describe("Forces", function() {
-    it("should calculate node velocity", function() {
-        var forcesCalculator = forces();
-        var netForce = {
-            multiply : {}
-        };
-        var someNode = {
-            velocity : {
-                add : {}
-            }
-        };
-        var resultingVelocity = {
-            multiply : {}
-        };
-        var expectedVelocity = {
-            multiply : {}
-        };
-        
-        spyOn(netForce, 'multiply').andReturn(netForce);
-        spyOn(resultingVelocity, 'multiply').andReturn(expectedVelocity);
-        spyOn(expectedVelocity, 'multiply').andReturn(expectedVelocity);
-        spyOn(someNode.velocity, 'add').andReturn(resultingVelocity);
+  it("should calculate node velocity", function() {
+    var forcesCalculator = forces();
 
-        var actualVelocity = forcesCalculator.velocityFor(someNode, netForce);
+    var netForce = {};
+    netForce.multiply = jasmine.createSpy().andReturn(netForce);
+    var expectedVelocity = {};
+    expectedVelocity.multiply = jasmine.createSpy().andReturn(expectedVelocity);
+    var resultingVelocity = {
+      multiply: jasmine.createSpy().andReturn(expectedVelocity)
+    };
+    var someNode = {
+      velocity: {
+        add: jasmine.createSpy().andReturn(resultingVelocity)
+      }
+    };
 
-        expect(netForce.multiply).toHaveBeenCalledWith(forcesCalculator.timestep);
-        expect(someNode.velocity.add).toHaveBeenCalledWith(netForce);
-        expect(resultingVelocity.multiply).toHaveBeenCalledWith(forcesCalculator.damping);
-        expect(actualVelocity).toBe(expectedVelocity);
-    });
+    var actualVelocity = forcesCalculator.velocityFor(someNode, netForce);
 
-    it("should calculate node updated location", function() {
-        var forcesCalculator = forces();
-        var someNode = {
-            location : {
-                add : {}
-            }
-        };
-        var velocity = {
-            multiply : {}
-        };
-        var expectedLocation = {};
+    expect(netForce.multiply).toHaveBeenCalledWith(0.7);
+    expect(someNode.velocity.add).toHaveBeenCalledWith(netForce);
+    expect(resultingVelocity.multiply).toHaveBeenCalledWith(0.5);
+    expect(actualVelocity).toBe(expectedVelocity);
+  });
 
-        spyOn(velocity, 'multiply').andReturn(velocity);
-        spyOn(someNode.location, 'add').andReturn(expectedLocation);
+  it("should calculate node updated position", function() {
+    var forcesCalculator = forces();
+    var expectedLocation = {};
+    var someNode = {
+      position: {
+        add: jasmine.createSpy().andReturn(expectedLocation)
+      }
+    };
+    var velocity = {};
+    velocity.multiply = jasmine.createSpy(velocity);
 
-        var actualLocation = forcesCalculator.nextLocationFor(someNode, velocity);
-        
-        expect(someNode.location.add).toHaveBeenCalledWith(velocity);
-        expect(actualLocation).toBe(expectedLocation);
-    });
+    var actualLocation = forcesCalculator.nextLocationFor(someNode, velocity);
 
-    it("should calculate net force", function() {
-       var node2 = {};
-       var node3 = {};
-       var node1 = {
-           connections : [node2, node3]
-       };
+    expect(someNode.position.add).toHaveBeenCalledWith(velocity);
+    expect(actualLocation).toBe(expectedLocation);
+  });
 
-       var repulsion = {
-           calculate : {}
-       };
-       var resultingRepulsion = {};
-       
-       var attraction = {
-           calculate : {}
-       };
-       var resultingAttraction = {};
-       var netForce = {
-           add : {}
-       };
+  it("should calculate net force", function() {
+    var node2 = {};
+    var node3 = {};
+    var node1 = {
+      connections: [node2, node3]
+    };
 
-       spyOn(repulsion, 'calculate').andReturn(resultingRepulsion);
-       spyOn(attraction, 'calculate').andReturn(resultingAttraction);
-       spyOn(netForce, 'add').andReturn(netForce);
+    var resultingRepulsion = {};
+    var repulsion = {
+      calculate: jasmine.createSpy().andReturn(resultingRepulsion)
+    };
 
-       var forcesCalculator = forces(repulsion, attraction);
+    var resultingAttraction = {};
+    var attraction = {
+      calculate: jasmine.createSpy().andReturn(resultingAttraction)
+    };
+    var netForce = {};
+    netForce.add = jasmine.createSpy().andReturn(netForce);
 
-       var actualNetForce = forcesCalculator.calculateNetForceFor(node1, [node1, node2, node3], netForce);
+    var forcesCalculator = forces(repulsion, attraction);
 
-       expect(actualNetForce).toBe(netForce);
-       expect(repulsion.calculate).not.toHaveBeenCalledWith(node1, node1);
-       expect(repulsion.calculate).toHaveBeenCalledWith(node1, node2);
-       expect(repulsion.calculate).toHaveBeenCalledWith(node1, node3);
-       expect(attraction.calculate).toHaveBeenCalledWith(node1, node2);
-       expect(attraction.calculate).toHaveBeenCalledWith(node1, node3);
-       expect(netForce.add).toHaveBeenCalledWith(resultingRepulsion);
-       expect(netForce.add).toHaveBeenCalledWith(resultingAttraction);
-    });
+    var actualNetForce = forcesCalculator.calculateNetForceFor(node1, [node1, node2, node3], netForce);
+
+    expect(actualNetForce).toBe(netForce);
+    expect(repulsion.calculate).not.toHaveBeenCalledWith(node1, node1);
+    expect(repulsion.calculate).toHaveBeenCalledWith(node1, node2);
+    expect(repulsion.calculate).toHaveBeenCalledWith(node1, node3);
+    expect(attraction.calculate).toHaveBeenCalledWith(node1, node2);
+    expect(attraction.calculate).toHaveBeenCalledWith(node1, node3);
+    expect(netForce.add).toHaveBeenCalledWith(resultingRepulsion);
+    expect(netForce.add).toHaveBeenCalledWith(resultingAttraction);
+  });
 });

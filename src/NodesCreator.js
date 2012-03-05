@@ -1,15 +1,16 @@
-function nodesCreator(numberOfNodes, locationRandomizer) {
-    var self = {};
-    var nodes = [];
+function nodesCreator(numberOfNodes, positionRandomizer) {
+  var nodes = [];
 
-    self.createNodes = function() {
-        for (var i=0; i<numberOfNodes; i++) {
-            var location = locationRandomizer.nextLocation();
-            nodes.push(node(location));
-        }
+  var createNodes = function() {
+    _.times(numberOfNodes, function() {
+      var position = positionRandomizer.nextLocation();
+      nodes.push(node(position));
+    });
 
-        return nodes;
-    };
+    return nodes;
+  };
 
-    return self;
+  return {
+    createNodes: createNodes
+  };
 }

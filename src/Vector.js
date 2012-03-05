@@ -1,32 +1,40 @@
 function vector(x, y) {
-    var self = {
-        x : x,
-        y : y
-    };
+  var self = {};
 
-    self.add = function(otherVector) {
-        return vector(self.x + otherVector.x, self.y + otherVector.y);
-    };
+  var add = function(otherVector) {
+    return vector(x + otherVector.x, y + otherVector.y);
+  };
 
-    self.subtract = function(otherVector) {
-        return vector(self.x - otherVector.x, self.y - otherVector.y);
-    };
+  var subtract = function(otherVector) {
+    return vector(x - otherVector.x, y - otherVector.y);
+  };
 
-    self.dot = function(otherVector) {
-        return self.x * otherVector.x + self.y * otherVector.y;
-    };
+  var dot = function(otherVector) {
+    return x * otherVector.x + y * otherVector.y;
+  };
 
-    self.multiply = function(constant) {
-        return vector(self.x * constant, self.y * constant);
-    };
+  var multiply = function(constant) {
+    return vector(x * constant, y * constant);
+  };
 
-    self.module = function() {
-        return Math.sqrt(self.dot(self));
-    };
+  var module = function() {
+    return Math.sqrt(dot(self));
+  };
 
-    self.normalize = function() {
-        return self.multiply(1.0 / self.module());
-    };
+  var normalize = function() {
+    return multiply(1.0 / module());
+  };
 
-    return self;
+  self = {
+    x: x,
+    y: y,
+    add: add,
+    subtract: subtract,
+    dot: dot,
+    multiply: multiply,
+    module: module,
+    normalize: normalize
+  };
+
+  return self;
 }

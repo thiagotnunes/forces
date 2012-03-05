@@ -1,34 +1,34 @@
 function locationRandomizer(width, height, radius) {
+    var baseRandomNumber = function(upperBoundary) {
+        return Math.floor(Math.random() * upperBoundary);
+    };
+
+    var upperBoundaryFor = function (value) {
+        return value - radius - lowerBoundary - 1;
+    };
+
     var lowerBoundary = radius + 1;
     var widthUpperBoundary = upperBoundaryFor(width);
     var heightUpperBoundary = upperBoundaryFor(height);
-    var locations = [];
+    var positions = [];
 
-    var self = {
-    };
-
-    self.nextRandomFor = function(upperBoundary) {
+    var nextRandomFor = function(upperBoundary) {
         return lowerBoundary + baseRandomNumber(upperBoundary);
     };
 
-    self.nextLocation = function() {
+    var nextLocation = function() {
         do {
-            var randomX = self.nextRandomFor(widthUpperBoundary);
-            var randomY = self.nextRandomFor(heightUpperBoundary);
-            var location = vector(randomX, randomY);
-        } while (locations.contains(location)); 
+            var randomX = nextRandomFor(widthUpperBoundary);
+            var randomY = nextRandomFor(heightUpperBoundary);
+            var position = vector(randomX, randomY);
+        } while (positions.contains(position)); 
 
-        locations.push(location);
-        return location;
+        positions.push(position);
+        return position;
     };
 
-    function baseRandomNumber(upperBoundary) {
-        return Math.floor(Math.random() * upperBoundary);
-    }
-
-    function upperBoundaryFor(value) {
-        return value - radius - lowerBoundary - 1;
-    }
-
-    return self;
+    return {
+      nextRandomFor: nextRandomFor,
+      nextLocation: nextLocation
+    };
 }

@@ -1,15 +1,15 @@
 function hookeAttraction() {
-    var self = {
-        minimumLength : 50,
-        k : -1
-    };
+  var minimumLength = 50;
+  var k = -1;
 
-    self.calculate = function(node1, node2) {
-        var distance = node1.location.subtract(node2.location);
-        var restingDistance = distance.normalize().multiply(self.minimumLength);
+  var calculate = function(node1, node2) {
+    var distance = node1.position.subtract(node2.position);
+    var restingDistance = distance.normalize().multiply(minimumLength);
 
-        return (distance.subtract(restingDistance)).multiply(self.k);
-    };
+    return (distance.subtract(restingDistance)).multiply(k);
+  };
 
-    return self;
+  return {
+    calculate: calculate
+  };
 }

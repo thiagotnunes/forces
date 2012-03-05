@@ -1,19 +1,19 @@
 function coulombRepulsion() {
-    var self = {
-        k : 100
-    };
+  var k = 100;
 
-    self.calculate = function(node1, node2) {
-        var distance = node1.location.subtract(node2.location);
-        var euclideanDistance = Math.sqrt(distance.dot(distance));
-        var normalizedDistance = distance.normalize();
-        
-        return vector(forceFor(normalizedDistance.x, euclideanDistance), forceFor(normalizedDistance.y, euclideanDistance));
-    };
+  var forceFor = function (axis, distance) {
+    return k * axis * (1 / distance);
+  }
 
-    function forceFor(axis, distance) {
-        return self.k * axis * (1 / distance);
-    }
+  var calculate = function(node1, node2) {
+    var distance = node1.position.subtract(node2.position);
+    var euclideanDistance = Math.sqrt(distance.dot(distance));
+    var normalizedDistance = distance.normalize();
 
-    return self;
+    return vector(forceFor(normalizedDistance.x, euclideanDistance), forceFor(normalizedDistance.y, euclideanDistance));
+  };
+
+  return {
+    calculate: calculate
+  };
 }

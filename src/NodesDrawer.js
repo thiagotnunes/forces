@@ -1,25 +1,27 @@
 function nodesDrawer(nodes, canvas) {
-    var self = {
-        nodes : nodes, 
-        canvas : canvas,
-        context : canvas.getContext('2d')
-    };
 
-    self.draw = function() {
-        clearCanvas();
-        for (var i=0; i<self.nodes.length; i++) {
-            self.nodes[i].draw(self.context);
-        }
+  var self = {};
+  var context = canvas.getContext('2d');
 
-        return self;
-    }
+  var clearCanvas = function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    var width = canvas.width;
+    canvas.width = 1;
+    canvas.width = width;
+  };
 
-    function clearCanvas() {
-        self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
-        var width = self.canvas.width;
-        self.canvas.width = 1;
-        self.canvas.width = width;
-    }
+  var draw = function() {
+    clearCanvas();
+    _.each(nodes, function(element) {
+      element.draw(context);
+    });
 
     return self;
+  }
+
+  self = {
+    draw: draw
+  };
+
+  return self;
 }

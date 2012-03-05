@@ -1,41 +1,31 @@
 describe("Binary Node Creator", function() {
     it("should create a binary graph", function() {
         var creator = {
-            createNodes : {}
+            createNodes: jasmine.createSpy().andReturn(createNodes())
         };
-        var node1 = {
-            connectWith : {}
-        };
-        var node2 = {
-            connectWith : {}
-        };
-        var node3 = {
-            connectWith : {}
-        };
-        var node4 = {
-            connectWith : {}
-        };
-        var nodes = [node1, node2, node3, node4];
-
-        spyOn(creator, 'createNodes').andReturn(nodes);
-        spyOn(node1, 'connectWith');
-        spyOn(node2, 'connectWith');
-        spyOn(node3, 'connectWith');
-        spyOn(node4, 'connectWith');
 
         var binaryCreator = binaryNodeCreator(creator);
 
-        var responseNodes = binaryCreator.nodes();
+        var nodes = binaryCreator.nodes();
 
-        expect(nodes.contains(node1)).toBe(true);
-        expect(nodes.contains(node2)).toBe(true);
-        expect(nodes.contains(node3)).toBe(true);
-        expect(nodes.contains(node4)).toBe(true);
+        expect(nodes.contains(nodes[0])).toBe(true);
+        expect(nodes.contains(nodes[1])).toBe(true);
+        expect(nodes.contains(nodes[2])).toBe(true);
+        expect(nodes.contains(nodes[3])).toBe(true);
         expect(creator.createNodes).toHaveBeenCalled();
-        expect(node1.connectWith).toHaveBeenCalledWith(node2);
-        expect(node1.connectWith).toHaveBeenCalledWith(node3);
-        expect(node2.connectWith).toHaveBeenCalledWith(node4);
-        expect(node3.connectWith).not.toHaveBeenCalled();
-        expect(node4.connectWith).not.toHaveBeenCalled();
+        expect(nodes[0].connectWith).toHaveBeenCalledWith(nodes[1]);
+        expect(nodes[0].connectWith).toHaveBeenCalledWith(nodes[2]);
+        expect(nodes[1].connectWith).toHaveBeenCalledWith(nodes[3]);
+        expect(nodes[2].connectWith).not.toHaveBeenCalled();
+        expect(nodes[3].connectWith).not.toHaveBeenCalled();
     });
+
+    function createNodes() {
+      var nodes = [{},{},{},{}];
+      _.each(nodes, function(element) {
+        element.connectWith = jasmine.createSpy()
+      });
+
+      return nodes;
+    }
 });
