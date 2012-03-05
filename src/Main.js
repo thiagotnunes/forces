@@ -1,37 +1,34 @@
 function main(canvas) {
-    var self = {
-        canvas : canvas
-    };
+    var randomizer = locationRandomizer(canvas.width, canvas.height, 200);
+    var creator = binaryNodeCreator(nodesCreator(12, randomizer));
+    var repulsion = coulombRepulsion();
+    var attraction = hookeAttraction();
+    var nodeForces = forces(repulsion, attraction);    
+    var locationCalculator = forceLocationCalculator(nodeForces);
 
-    self.initialize = function() {
-        var randomizer = locationRandomizer(self.canvas.width, self.canvas.height, 200);
-        var creator = binaryNodeCreator(nodesCreator(12, randomizer));
-        var repulsion = coulombRepulsion();
-        var attraction = hookeAttraction();
-        var nodeForces = forces(repulsion, attraction);    
-        self.locationCalculator = forceLocationCalculator(nodeForces);
-        self.createNodesAndDraw(creator);
-    }
-
-    self.createNodesAndDraw = function(creator) {
-        self.nodes = creator.nodes();
+    var nodes = function(creator) {
+        var nodes = creator.nodes();
         
-        drawer = nodesDrawer(self.nodes, self.canvas);
+        drawer = nodesDrawer(nodes, canvas);
         drawer.draw();
-    }
 
-    self.organize = function() {
-        updateLocation(self.nodes);
-    }
+        return nodes;
+    }(creator);
 
-    function updateLocation(nodes) {
-        self.locationCalculator.updateLocationOf(self.nodes, vector(0, 0));
+    var updateLocation = function(nodes) {
+        locationCalculator.updateLocationOf(nodes, vector(0, 0));
         drawer.draw();
         setTimeout(callback, 100);
         function callback() {
-            updateLocation(self.nodes);
+            updateLocation(nodes);
         };
-    }
+    };
 
-    return self;
+    var organize = function() {
+        updateLocation(nodes);
+    };
+
+    return {
+      organize: organize
+    };
 }
