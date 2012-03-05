@@ -1,17 +1,17 @@
 function flatNodeCreator(nodesCreator) {
-    self = {
-        nodesCreator : nodesCreator
-    };
+  var nodes = function() {
+    var nodes = nodesCreator.createNodes();
 
-    self.nodes = function() {
-        var nodes = self.nodesCreator.createNodes();
+    _.each(nodes, function(element, i) {
+      if (i != 0) {
+        nodes[0].connectWith(element);
+      }
+    });
 
-        for(var i=1; i<nodes.length; i++) {
-            nodes[0].connectWith(nodes[i]);
-        }
+    return nodes;
+  }
 
-        return nodes;
-    }
-
-    return self;
+  return {
+    nodes: nodes
+  };
 }
