@@ -23,8 +23,6 @@ function node(position) {
       context.lineTo(otherX, otherY);
     });
     context.stroke();
-
-    return self;
   };
 
   var connectWith = function(otherNode) {

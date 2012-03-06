@@ -1,6 +1,4 @@
 function nodesDrawer(nodes, canvas) {
-
-  var self = {};
   var context = canvas.getContext('2d');
 
   var clearCanvas = function() {
@@ -15,13 +13,9 @@ function nodesDrawer(nodes, canvas) {
     _.each(nodes, function(element) {
       element.draw(context);
     });
-
-    return self;
   }
 
-  self = {
+  return {
     draw: draw
   };
-
-  return self;
 }
