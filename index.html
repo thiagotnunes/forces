@@ -21,7 +21,14 @@
         <script type="text/javascript">
             var program = null;
             $(document).ready(function() {
-                program = main($('#canvas')[0]);
+                var canvas = $('#canvas')[0];
+                var randomizer = locationRandomizer(canvas.width, canvas.height, 200);
+                var creator = binaryNodeCreator(nodesCreator(12, randomizer));
+                var nodes = creator.nodes();
+                var drawer = nodesDrawer(nodes, canvas);
+                drawer.draw();
+
+                program = main(nodes, drawer);
             });
 
         </script>
