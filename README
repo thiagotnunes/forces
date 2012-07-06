@@ -1,1 +1,3 @@
-Javascript graph drawing
+This is a javascript graph drawing mechanism based on forces.
+
+Each of the nodes is considered to be an electron that repels the other nodes and each edge is considered to be a spring which holds the nodes within the given space.
