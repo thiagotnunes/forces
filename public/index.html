@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/forces.css" />
+    <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+
+    <script type="text/javascript" src="js/Array.js"></script>
+    <script type="text/javascript" src="js/Vector.js"></script>
+    <script type="text/javascript" src="js/Node.js"></script>
+    <script type="text/javascript" src="js/LocationRandomizer.js"></script>
+    <script type="text/javascript" src="js/NodesCreator.js"></script>
+    <script type="text/javascript" src="js/CoulombRepulsion.js"></script>
+    <script type="text/javascript" src="js/HookeAttraction.js"></script>
+    <script type="text/javascript" src="js/Forces.js"></script>
+    <script type="text/javascript" src="js/ForceLocationCalculator.js"></script>
+    <script type="text/javascript" src="js/NodesDrawer.js"></script>
+    <script type="text/javascript" src="js/Main.js"></script>
+    <script type="text/javascript" src="js/FlatNodeCreator.js"></script>
+    <script type="text/javascript" src="js/BinaryNodeCreator.js"></script>
+
+    <script type="text/javascript">
+      var program = null;
+      $(document).ready(function() {
+        var canvas = $('#canvas')[0];
+        var randomizer = locationRandomizer(canvas.width, canvas.height, 200);
+        var creator = binaryNodeCreator(nodesCreator(12, randomizer));
+        var nodes = creator.nodes();
+        var drawer = nodesDrawer(nodes, canvas);
+        drawer.draw();
+
+        program = main(nodes, drawer);
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id="canvasContainer">
+      <canvas id="canvas" width="800px" height="600px"></canvas>
+    </div>
+    <div id="commandContainer">
+      <input type="submit" id="start" onclick="javascript : program.organize(); return false;" value="Start" />
+    </div>
+  </body>
+  </html>
